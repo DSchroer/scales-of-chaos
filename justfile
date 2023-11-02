@@ -17,6 +17,7 @@ windows: lovefile
 	cd .tmp && unzip love-11.4-win64.zip
 	mv .tmp/love-11.4-win64/*.dll builds/windows/
 	cat .tmp/love-11.4-win64/love.exe scales-of-chaos.love > builds/windows/scales-of-chaos.exe
+	-rm -r .tmp
 
 lovefile:
 	cd src && zip -r ../scales-of-chaos.love *

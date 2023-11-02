@@ -41,7 +41,7 @@ function snake.update(dt)
     end
 end
 
-width, height, flags = love.window.getMode( )
+width, height, flags = love.window.getMode()
 
 function torus_x(x)
   return x % width
@@ -51,8 +51,8 @@ function torus_y(x)
   return x % height
 end
 
-function distance( x1, y1, x2, y2 )
+function distance(x1, y1, x2, y2)
   local dx = x1 - x2
   local dy = y1 - y2
-  return math.sqrt ( dx * dx + dy * dy )
+  return math.sqrt (dx * dx + dy * dy)
 end
