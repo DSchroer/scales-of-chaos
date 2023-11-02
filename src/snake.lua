@@ -7,18 +7,19 @@ end
 
 function snake.draw()
     love.graphics.push()
+
     love.graphics.translate(torus_x(snake.x), torus_y(snake.y))
     love.graphics.rotate(-snake.dir)
     love.graphics.circle("line", 0, 0, 25, 10)
-    love.graphics.pop()
 
     for i=1,#snake.tail do
-        love.graphics.push()
+        love.graphics.origin()
         love.graphics.translate(torus_x(snake.tail[i].x), torus_y(snake.tail[i].y))
         love.graphics.rotate(-snake.tail[i].dir)
         love.graphics.circle("line", 0, 0, 25, 6)
-        love.graphics.pop()
     end
+
+    love.graphics.pop()
 end
 
 function snake.update(dt)
