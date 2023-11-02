@@ -1,3 +1,9 @@
+require "snake"
+
+function love.update(dt)
+    snake.update(dt)
+end
+
 function love.draw()
-    love.graphics.print("Hello World", 400, 300)
+    snake.draw()
 end
