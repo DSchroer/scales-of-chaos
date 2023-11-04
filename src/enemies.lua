@@ -5,7 +5,7 @@ enemies = {}
 width, height, flags = love.window.getMode()
 
 function enemies:spawn()
-    enemies[#enemies + 1] = { 
+    self[#self + 1] = { 
         x = math.random(0, width), 
         y = math.random(0, height),
         radius = 25,
