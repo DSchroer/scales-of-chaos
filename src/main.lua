@@ -1,9 +1,16 @@
 require "snake"
+require "enemies"
+
+enemies:spawn()
+enemies:spawn()
+enemies:spawn()
 
 function love.update(dt)
-    snake.update(dt)
+    enemies:update(dt)
+    snake:update(dt)
 end
 
 function love.draw()
-    snake.draw()
+    enemies:draw()
+    snake:draw()
 end
