@@ -8,9 +8,15 @@ function Animation(name, x, y, scale, speed)
         frames = {},
         draw = drawFrame
     };
-    for i = 1, 4 do
-        anim.frames[i] = love.graphics.newImage(string.format("assets/lizard_frames/frame%d/frame%d_%s.png", i, i,
-            name))
+    local i = 1
+    while true do
+        local file = string.format("assets/lizard_frames/frame%d/frame%d_%s.png", i, i, name)
+        if love.filesystem.exists(file) == false then
+            break
+        end
+
+        anim.frames[i] = love.graphics.newImage(file)
+        i = i + 1
     end
     return anim
 end
