@@ -1,7 +1,11 @@
 play:
 	love src
 
-build: linux windows
+build: linux windows web
+
+web: lovefile
+	love.js scales-of-chaos.love game -c -t "Scales Of Chaos"
+	mv game builds/web
 
 linux: lovefile
 	-mkdir -p builds/linux
