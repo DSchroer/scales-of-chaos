@@ -1,5 +1,6 @@
 require "snake"
 require "enemies"
+require "ui"
 
 enemies:spawn()
 enemies:spawn()
@@ -22,4 +23,6 @@ function love.draw()
 
     enemies:draw()
     snake:draw()
+
+    ui:draw()
 end

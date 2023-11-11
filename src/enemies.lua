@@ -1,12 +1,13 @@
 require "snake"
+require "ui"
 
 enemies = {}
 
 width, height, flags = love.window.getMode()
 
 function enemies:spawn()
-    self[#self + 1] = { 
-        x = math.random(0, width), 
+    self[#self + 1] = {
+        x = math.random(0, width),
         y = math.random(0, height),
         radius = 25,
         hitPlayer = false
@@ -14,12 +15,13 @@ function enemies:spawn()
 end
 
 function enemies:update(dt)
-    for i=1,#self do
+    for i = 1, #self do
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
             self[i].x = math.random(0, width)
             self[i].y = math.random(0, height)
             self[i].hitPlayer = false
             snake:grow()
+            ui.score = ui.score + 1
         end
 
         if snake:hitTail(self[i].x, self[i].y, self[i].radius) then
@@ -32,7 +34,7 @@ end
 function enemies:draw()
     love.graphics.push()
 
-    for i=1,#self do
+    for i = 1, #self do
         love.graphics.origin()
         love.graphics.translate(self[i].x, self[i].y)
 
