@@ -7,6 +7,8 @@ enemies:spawn()
 
 function love.load()
     bg = love.graphics.newImage("assets/background.jpg")
+
+    snake:load()
 end
 
 function love.update(dt)

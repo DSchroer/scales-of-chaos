@@ -1,0 +1,32 @@
+function Animation(name, x, y, scale, speed)
+    local anim = {
+        originX = -x,
+        originY = -y,
+        scale = scale,
+        frame = 1,
+        speed = speed,
+        frames = {},
+        draw = drawFrame
+    };
+    for i = 1, 4 do
+        anim.frames[i] = love.graphics.newImage(string.format("assets/lizard_frames/frame%d/frame%d_%s.png", i, i,
+            name))
+    end
+    return anim
+end
+
+function drawFrame(self)
+    love.graphics.push()
+
+    love.graphics.rotate(math.pi)
+    love.graphics.draw(self.frames[math.floor(self.frame)], self.originX * self.scale, self.originY * self.scale, 0,
+        self.scale,
+        self.scale)
+
+    self.frame = self.frame + self.speed
+    if self.frame > #self.frames then
+        self.frame = 1
+    end
+
+    love.graphics.pop()
+end
