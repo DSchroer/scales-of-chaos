@@ -11,7 +11,7 @@ function Animation(name, x, y, scale, speed)
     local i = 1
     while true do
         local file = string.format("assets/lizard_frames/frame%d/frame%d_%s.png", i, i, name)
-        if love.filesystem.exists(file) == false then
+        if love.filesystem.getInfo(file) == nil then
             break
         end
 
