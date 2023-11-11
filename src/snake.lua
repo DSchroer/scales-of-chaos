@@ -1,4 +1,5 @@
 require "utils"
+require "ui"
 
 snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 3, tail_length = 5, tail_distance = 30 }
 
@@ -33,6 +34,9 @@ end
 
 function snake:damage()
     table.remove(self.tail, #self.tail)
+    if #self.tail < 4 then
+        ui.paused = true
+    end
 end
 
 function snake:hitHead(x, y, radius)
@@ -74,6 +78,8 @@ function snake:update(dt)
         self.dir = self.dir - (self.turn_speed * dt)
     end
 
+    self.anim:update()
+
     self.x = self.x + (self.speed * dt * math.sin(self.dir))
     self.y = self.y + (self.speed * dt * math.cos(self.dir))
 
@@ -90,6 +96,8 @@ function snake:update(dt)
 
         tx = self.tail[i].x
         ty = self.tail[i].y
+
+        self.tail[i].anim:update()
     end
 
     snake:checkSelfHit()

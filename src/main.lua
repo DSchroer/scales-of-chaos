@@ -13,8 +13,10 @@ function love.load()
 end
 
 function love.update(dt)
-    enemies:update(dt)
-    snake:update(dt)
+    if not ui.paused then
+        enemies:update(dt)
+        snake:update(dt)
+    end
 end
 
 function love.draw()

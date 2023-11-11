@@ -6,7 +6,8 @@ function Animation(name, x, y, scale, speed)
         frame = 1,
         speed = speed,
         frames = {},
-        draw = drawFrame
+        draw = drawFrame,
+        update = updateFrame
     };
     local i = 1
     while true do
@@ -21,6 +22,13 @@ function Animation(name, x, y, scale, speed)
     return anim
 end
 
+function updateFrame(self)
+    self.frame = self.frame + self.speed
+    if self.frame > #self.frames then
+        self.frame = 1
+    end
+end
+
 function drawFrame(self)
     love.graphics.push()
 
@@ -28,11 +36,6 @@ function drawFrame(self)
     love.graphics.draw(self.frames[math.floor(self.frame)], self.originX * self.scale, self.originY * self.scale, 0,
         self.scale,
         self.scale)
-
-    self.frame = self.frame + self.speed
-    if self.frame > #self.frames then
-        self.frame = 1
-    end
 
     love.graphics.pop()
 end
