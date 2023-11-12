@@ -3,9 +3,10 @@ require "ui"
 
 enemies = {}
 
-width, height, flags = love.window.getMode()
 
 function enemies:spawn()
+    width, height, flags = love.window.getMode()
+
     self[#self + 1] = {
         x = math.random(0, width),
         y = math.random(0, height),
@@ -15,6 +16,8 @@ function enemies:spawn()
 end
 
 function enemies:update(dt)
+    width, height, flags = love.window.getMode()
+
     for i = 1, #self do
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
             self[i].x = math.random(0, width)

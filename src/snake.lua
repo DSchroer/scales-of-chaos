@@ -61,6 +61,11 @@ function snake:draw()
 
     for i = 1, #self.tail do
         love.graphics.origin()
+
+        if i > 3 then
+            love.graphics.setColor(1, 0.5, 0.5, 1)
+        end
+
         love.graphics.translate(torus_x(self.tail[i].x), torus_y(self.tail[i].y))
         love.graphics.rotate(-self.tail[i].dir)
         self.tail[i].anim:draw()
@@ -113,13 +118,15 @@ function snake:checkSelfHit()
     end
 end
 
-width, height, flags = love.window.getMode()
-
 function torus_x(x)
+    width, height, flags = love.window.getMode()
+
     return x % width
 end
 
 function torus_y(x)
+    width, height, flags = love.window.getMode()
+
     return x % height
 end
 

@@ -3,9 +3,10 @@ ui = {
     paused = false
 }
 
-width, height, flags = love.window.getMode()
 
 function ui:draw()
+    width, height, flags = love.window.getMode()
+
     love.graphics.push()
     love.graphics.setColor(1, 0, 0, 0.8)
     love.graphics.print(string.format("Score: %d", self.score), width - 200, 32, 0, 3, 3)
