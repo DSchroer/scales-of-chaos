@@ -1,7 +1,7 @@
 require "utils"
 require "ui"
 
-snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 3, tail_length = 5, tail_distance = 30 }
+snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, tail_length = 5, tail_distance = 30 }
 
 function snake:load()
     self.anim = Animation("head", 64, 34, 1.5, 0.15)
