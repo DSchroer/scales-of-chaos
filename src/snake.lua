@@ -4,7 +4,7 @@ snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, t
 
 function snake:load(ui)
     self.ui = ui
-    self.anim = Animation(LizardAnimLoader("head"), 64, 34, 1.5, 0.15)
+    self.anim = Animation(LizardAnimLoader("head"), 64, 24, 1.5, 0.15)
 end
 
 function snake:grow()
@@ -23,7 +23,7 @@ function snake:grow()
     elseif index == 3 then
         self.tail[index].anim = Animation(LizardAnimLoader("legs"), 64, 93, 1.5, 0.15)
     else
-        self.tail[index].anim = Animation(LizardAnimLoader("tail"), 64, 111, 1.5, 0.15)
+        self.tail[index].anim = Animation(LizardAnimLoader("tail"), 69, 110, 1.5, 0.15)
     end
 end
 
