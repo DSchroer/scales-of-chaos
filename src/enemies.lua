@@ -37,12 +37,20 @@ function direction_ai:load()
 end
 
 function direction_ai:update(dt)
-    local speed = 300
+    local speed = 150
+    local switch = 256
 
     self.t = (self.t or 0) + dt
     if self.t > self.maxT then
         self:load()
         self.t = 0
+    end
+
+    local distance = snake:distance(self.x, self.y)
+    if distance < switch and snake:distanceHead(self.x, self.y) > distance then
+        self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y)) + math.pi
+    elseif distance < switch then
+        self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y))
     end
 
     self.x = self.x + (speed * dt * math.sin(self.dir))

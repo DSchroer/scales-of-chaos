@@ -34,5 +34,6 @@ function pickups:draw()
         love.graphics.circle("fill", 0, 0, 25, 10)
     end
 
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.pop()
 end

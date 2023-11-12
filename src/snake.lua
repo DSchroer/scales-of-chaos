@@ -52,6 +52,10 @@ function snake:hitTail(x, y, radius)
     return false
 end
 
+function snake:distanceHead(x, y)
+    return distance(torus_x(x), torus_y(y), torus_x(self.x), torus_y(self.y))
+end
+
 function snake:distance(x, y)
     local d = distance(torus_x(x), torus_y(y), torus_x(self.x), torus_y(self.y))
     for i = 1, #self.tail do
