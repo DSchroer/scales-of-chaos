@@ -1,5 +1,6 @@
 require "snake"
 require "ui"
+require "utils"
 
 enemies = {}
 
@@ -7,20 +8,41 @@ enemies = {}
 function enemies:spawn()
     width, height, flags = love.window.getMode()
 
-    self[#self + 1] = {
+    local i = #self + 1
+    self[i] = {
         x = math.random(0, width),
         y = math.random(0, height),
         radius = 25,
-        hitPlayer = false
+        hitPlayer = false,
+        load = direction_ai.load,
+        update = direction_ai.update
     }
+
+    self[i]:load()
+end
+
+direction_ai = {}
+
+function direction_ai:load()
+    self.dir = math.rad(math.random(0, 360))
+end
+
+function direction_ai:update(dt)
+    local speed = 300
+
+    self.x = self.x + (speed * dt * math.sin(self.dir))
+    self.y = self.y + (speed * dt * math.cos(self.dir))
 end
 
 function enemies:update(dt)
     width, height, flags = love.window.getMode()
 
     for i = 1, #self do
+        self[i]:update(dt)
+
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
             self:respawn(i)
+            self[i]:load()
             self[i].hitPlayer = false
             ui.score = ui.score + 1
         end
@@ -48,7 +70,7 @@ function enemies:draw()
 
     for i = 1, #self do
         love.graphics.origin()
-        love.graphics.translate(self[i].x, self[i].y)
+        love.graphics.translate(torus_x(self[i].x), torus_y(self[i].y))
 
         if self[i].hitPlayer then
             love.graphics.setColor(0, 1, 0, 1)

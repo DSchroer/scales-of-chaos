@@ -39,3 +39,15 @@ function drawFrame(self)
 
     love.graphics.pop()
 end
+
+function torus_x(x)
+    width, height, flags = love.window.getMode()
+
+    return x % width
+end
+
+function torus_y(x)
+    width, height, flags = love.window.getMode()
+
+    return x % height
+end

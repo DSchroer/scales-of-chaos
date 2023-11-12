@@ -118,18 +118,6 @@ function snake:checkSelfHit()
     end
 end
 
-function torus_x(x)
-    width, height, flags = love.window.getMode()
-
-    return x % width
-end
-
-function torus_y(x)
-    width, height, flags = love.window.getMode()
-
-    return x % height
-end
-
 function distance(x1, y1, x2, y2)
     local dx = x1 - x2
     local dy = y1 - y2
