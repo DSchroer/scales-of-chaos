@@ -3,9 +3,7 @@ require "enemies"
 require "ui"
 require "pickup"
 
-enemies:spawn()
-enemies:spawn()
-enemies:spawn()
+enemies:spawn(ui)
 
 pickups:spawn(function()
     snake:grow()
@@ -16,7 +14,7 @@ function love.load()
 
     bg = love.graphics.newImage("assets/background.jpg")
 
-    snake:load()
+    snake:load(ui)
 end
 
 function love.update(dt)

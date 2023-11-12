@@ -1,17 +1,17 @@
 require "snake"
-require "ui"
 require "utils"
 
 enemies = {}
 
 
-function enemies:spawn()
+function enemies:spawn(ui)
     width, height, flags = love.window.getMode()
 
     local i = #self + 1
     self[i] = {
         x = math.random(0, width),
         y = math.random(0, height),
+        ui = ui,
         radius = 25,
         hitPlayer = false,
         load = direction_ai.load,
@@ -44,7 +44,7 @@ function enemies:update(dt)
             self:respawn(i)
             self[i]:load()
             self[i].hitPlayer = false
-            ui.score = ui.score + 1
+            self[i].ui:scoreUp()
         end
 
         if snake:hitTail(self[i].x, self[i].y, self[i].radius) and not self[i].hitPlayer then
