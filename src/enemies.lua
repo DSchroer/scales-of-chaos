@@ -25,10 +25,17 @@ direction_ai = {}
 
 function direction_ai:load()
     self.dir = math.rad(math.random(0, 360))
+    self.maxT = math.random(3, 10)
 end
 
 function direction_ai:update(dt)
     local speed = 300
+
+    self.t = (self.t or 0) + dt
+    if self.t > self.maxT then
+        self:load()
+        self.t = 0
+    end
 
     self.x = self.x + (speed * dt * math.sin(self.dir))
     self.y = self.y + (speed * dt * math.cos(self.dir))

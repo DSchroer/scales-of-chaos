@@ -1,6 +1,6 @@
 require "enemies"
--- require "pickup"
--- require "snake"
+require "pickup"
+require "snake"
 
 ui = {
     score = 0,
@@ -14,10 +14,10 @@ function ui:scoreUp()
         enemies:spawn(self)
     end
 
-    if self.score % 15 then
-        -- pickups:spawn(function()
-        --     -- snake:grow()
-        -- end)
+    if self.score % 15 == 0 then
+        pickups:spawn(function()
+            snake:grow()
+        end)
     end
 end
 

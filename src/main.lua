@@ -4,6 +4,7 @@ require "ui"
 require "pickup"
 
 enemies:spawn(ui)
+enemies:spawn(ui)
 
 pickups:spawn(function()
     snake:grow()
