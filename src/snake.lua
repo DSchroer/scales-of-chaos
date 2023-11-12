@@ -4,7 +4,7 @@ snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, t
 
 function snake:load(ui)
     self.ui = ui
-    self.anim = Animation(LizardAnimLoader("head"), 64, 24, 1.5, 0.15)
+    self.anim = Animation(LizardAnimLoader("head"), 64, 30, 1.5, 0.15)
 end
 
 function snake:grow()
@@ -24,8 +24,6 @@ function snake:grow()
         self.tail[index].anim = Animation(LizardAnimLoader("legs"), 64, 93, 1.5, 0.15)
     elseif (index - 3) % 2 == 0 then
         self.tail[index].anim = Animation(LizardAnimLoader("tail"), 69, 110, 1.5, 0.15)
-    else
-        -- self.tail[index].anim = Animation(LizardAnimLoader("tail_heart"), 69, 110, 1.5, 0.15)
     end
 end
 
@@ -112,9 +110,6 @@ function snake:update(dt)
 
     for i = 1, #self.tail do
         local tail_distance = self.tail_distance
-        -- if i > 3 then
-        --     tail_distance = tail_distance * 2
-        -- end
 
         dist = distance(tx, ty, self.tail[i].x, self.tail[i].y) - tail_distance
         dir = math.atan2(tx - self.tail[i].x, ty - self.tail[i].y)
