@@ -25,7 +25,7 @@ function snake:grow()
     elseif (index - 3) % 2 == 0 then
         self.tail[index].anim = Animation(LizardAnimLoader("tail"), 69, 110, 1.5, 0.15)
     else
-        self.tail[index].anim = Animation(LizardAnimLoader("tail_heart"), 69, 110, 1.5, 0.15)
+        -- self.tail[index].anim = Animation(LizardAnimLoader("tail_heart"), 69, 110, 1.5, 0.15)
     end
 end
 
@@ -79,15 +79,9 @@ function snake:draw()
         love.graphics.translate(torus_x(self.tail[i].x), torus_y(self.tail[i].y))
         love.graphics.rotate(-self.tail[i].dir)
 
-        self.tail[i].anim:draw()
-    end
-
-    for i = 4, #self.tail, 2 do
-        love.graphics.origin()
-
-        love.graphics.translate(torus_x(self.tail[i].x), torus_y(self.tail[i].y))
-        love.graphics.rotate(-self.tail[i].dir)
-        self.tail[i].anim:draw()
+        if self.tail[i].anim ~= nil then
+            self.tail[i].anim:draw()
+        end
     end
 
     love.graphics.origin()
@@ -132,7 +126,10 @@ function snake:update(dt)
         tx = self.tail[i].x
         ty = self.tail[i].y
 
-        self.tail[i].anim:update()
+
+        if self.tail[i].anim ~= nil then
+            self.tail[i].anim:update()
+        end
     end
 
     snake:checkSelfHit()
