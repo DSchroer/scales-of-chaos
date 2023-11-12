@@ -54,7 +54,7 @@ function direction_ai:update(dt)
     end
 
     if self.iframes > 0 then
-        self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y)) + math.pi
+        self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y))
     end
 
     self.x = self.x + (speed * dt * math.sin(self.dir))
