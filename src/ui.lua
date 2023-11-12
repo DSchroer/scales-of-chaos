@@ -20,7 +20,7 @@ function ui:scoreUp()
         enemies:spawn(self)
     end
 
-    if self.score % 15 == 0 then
+    if self.score % 6 == 0 then
         pickups:spawn(function()
             snake:grow()
         end)
