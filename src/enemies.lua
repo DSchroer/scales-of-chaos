@@ -20,17 +20,26 @@ function enemies:update(dt)
 
     for i = 1, #self do
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
-            self[i].x = math.random(0, width)
-            self[i].y = math.random(0, height)
+            self:respawn(i)
             self[i].hitPlayer = false
-            snake:grow()
             ui.score = ui.score + 1
         end
 
-        if snake:hitTail(self[i].x, self[i].y, self[i].radius) then
+        if snake:hitTail(self[i].x, self[i].y, self[i].radius) and not self[i].hitPlayer then
             snake:damage()
             self[i].hitPlayer = true
+        else
+            self[i].hitPlayer = false
         end
+    end
+end
+
+function enemies:respawn(i)
+    self[i].x = math.random(0, width)
+    self[i].y = math.random(0, height)
+
+    if snake:hitHead(self[i].x, self[i].y, self[i].radius) or snake:hitTail(self[i].x, self[i].y, self[i].radius) then
+        self:respawn(i)
     end
 end
 
