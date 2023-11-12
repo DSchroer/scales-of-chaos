@@ -23,6 +23,7 @@ function ui:scoreUp()
     if self.score % 6 == 0 then
         pickups:spawn(function()
             snake:grow()
+            snake:grow()
         end)
     end
 end

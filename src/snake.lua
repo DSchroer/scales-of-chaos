@@ -1,6 +1,6 @@
 require "utils"
 
-snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, tail_length = 5, tail_distance = 30 }
+snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, tail_length = 7, tail_distance = 30 }
 
 function snake:load(ui)
     self.ui = ui
@@ -22,8 +22,10 @@ function snake:grow()
         self.tail[index].anim = Animation(LizardAnimLoader("body"), 64, 62, 1.5, 0.15)
     elseif index == 3 then
         self.tail[index].anim = Animation(LizardAnimLoader("legs"), 64, 93, 1.5, 0.15)
-    else
+    elseif (index - 3) % 2 == 0 then
         self.tail[index].anim = Animation(LizardAnimLoader("tail"), 69, 110, 1.5, 0.15)
+    else
+        self.tail[index].anim = Animation(LizardAnimLoader("tail_heart"), 69, 110, 1.5, 0.15)
     end
 end
 
@@ -33,6 +35,7 @@ for i = 1, snake.tail_length do
 end
 
 function snake:damage()
+    table.remove(self.tail, #self.tail)
     table.remove(self.tail, #self.tail)
     if #self.tail < 4 then
         self.ui.paused = true
@@ -70,17 +73,19 @@ end
 function snake:draw()
     love.graphics.push()
 
-    love.graphics.translate(torus_x(self.x), torus_y(self.y))
-    love.graphics.rotate(-self.dir)
-    self.anim:draw()
-
-    for i = 1, #self.tail do
+    for i = #self.tail, 1, -1 do
         love.graphics.origin()
 
         love.graphics.translate(torus_x(self.tail[i].x), torus_y(self.tail[i].y))
         love.graphics.rotate(-self.tail[i].dir)
         self.tail[i].anim:draw()
     end
+
+    love.graphics.origin()
+
+    love.graphics.translate(torus_x(self.x), torus_y(self.y))
+    love.graphics.rotate(-self.dir)
+    self.anim:draw()
 
     love.graphics.pop()
 end
@@ -104,9 +109,9 @@ function snake:update(dt)
 
     for i = 1, #self.tail do
         local tail_distance = self.tail_distance
-        if i > 3 then
-            tail_distance = tail_distance * 2
-        end
+        -- if i > 3 then
+        --     tail_distance = tail_distance * 2
+        -- end
 
         dist = distance(tx, ty, self.tail[i].x, self.tail[i].y) - tail_distance
         dir = math.atan2(tx - self.tail[i].x, ty - self.tail[i].y)
