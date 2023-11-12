@@ -77,8 +77,6 @@ function snake:draw()
     for i = 1, #self.tail do
         love.graphics.origin()
 
-
-
         love.graphics.translate(torus_x(self.tail[i].x), torus_y(self.tail[i].y))
         love.graphics.rotate(-self.tail[i].dir)
         self.tail[i].anim:draw()
@@ -105,7 +103,12 @@ function snake:update(dt)
     local ty = self.y
 
     for i = 1, #self.tail do
-        dist = distance(tx, ty, self.tail[i].x, self.tail[i].y) - self.tail_distance
+        local tail_distance = self.tail_distance
+        if i > 3 then
+            tail_distance = tail_distance * 2
+        end
+
+        dist = distance(tx, ty, self.tail[i].x, self.tail[i].y) - tail_distance
         dir = math.atan2(tx - self.tail[i].x, ty - self.tail[i].y)
 
         self.tail[i].dir = dir
