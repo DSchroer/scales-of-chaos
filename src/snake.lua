@@ -78,6 +78,15 @@ function snake:draw()
 
         love.graphics.translate(torus_x(self.tail[i].x), torus_y(self.tail[i].y))
         love.graphics.rotate(-self.tail[i].dir)
+
+        self.tail[i].anim:draw()
+    end
+
+    for i = 4, #self.tail, 2 do
+        love.graphics.origin()
+
+        love.graphics.translate(torus_x(self.tail[i].x), torus_y(self.tail[i].y))
+        love.graphics.rotate(-self.tail[i].dir)
         self.tail[i].anim:draw()
     end
 
