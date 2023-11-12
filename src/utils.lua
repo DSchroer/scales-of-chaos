@@ -36,7 +36,7 @@ end
 
 function updateFrame(self)
     self.frame = self.frame + self.speed
-    if self.frame > #self.frames then
+    if self.frame > #self.frames + 1 then
         self.frame = 1
     end
 end
