@@ -3,7 +3,7 @@ require "utils"
 
 enemies = {}
 
-walk = Animation(EnemyAnimLoader("walk", 1), 32, 32, 1.5, 0.15)
+walk = Animation(EnemyAnimLoader("walk", 1), 64, 64, 1, 0.15)
 
 function enemies:spawn(ui)
     width, height, flags = love.window.getMode()
@@ -81,9 +81,10 @@ function enemies:draw()
     for i = 1, #self do
         love.graphics.origin()
         love.graphics.translate(torus_x(self[i].x), torus_y(self[i].y))
-        love.graphics.rotate(self[i].dir)
+        love.graphics.rotate(-self[i].dir)
 
         self[i].anim:draw()
+        -- love.graphics.circle("line", 0, 0, self[i].radius)
     end
 
     love.graphics.pop()
