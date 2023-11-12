@@ -9,12 +9,15 @@ function pickups:spawn(onHit)
         x = math.random(0, width),
         y = math.random(0, height),
         radius = 25,
-        hit = onHit
+        hit = onHit,
+        t = 0
     }
 end
 
 function pickups:update(dt)
     for i = 1, #self do
+        self[i].t = self[i].t + dt
+
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
             self[i]:hit()
             table.remove(self, i)
@@ -31,9 +34,12 @@ function pickups:draw()
         love.graphics.translate(self[i].x, self[i].y)
 
         love.graphics.setColor(0, 1, 0, 1)
+        local scale = math.abs(math.sin(self[i].t * 2) * 0.5) + 0.75
+        love.graphics.scale(scale, scale)
         love.graphics.circle("fill", 0, 0, 25, 10)
     end
 
+    love.graphics.scale(1, 1)
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.pop()
 end
