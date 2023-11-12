@@ -1,4 +1,16 @@
-function Animation(name, x, y, scale, speed)
+function LizardAnimLoader(name)
+    return function(i)
+        return string.format("assets/lizard_frames/frame%d/frame%d_%s.png", i, i, name)
+    end
+end
+
+function EnemyAnimLoader(name, n)
+    return function(i)
+        return string.format("assets/enemy%d_%s/enemy%d_%s%d.png", n, name, n, name, i)
+    end
+end
+
+function Animation(loader, x, y, scale, speed)
     local anim = {
         originX = -x,
         originY = -y,
@@ -11,7 +23,7 @@ function Animation(name, x, y, scale, speed)
     };
     local i = 1
     while true do
-        local file = string.format("assets/lizard_frames/frame%d/frame%d_%s.png", i, i, name)
+        local file = loader(i)
         if love.filesystem.getInfo(file) == nil then
             break
         end

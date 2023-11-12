@@ -3,6 +3,7 @@ require "utils"
 
 enemies = {}
 
+walk = Animation(EnemyAnimLoader("walk", 1), 32, 32, 1.5, 0.15)
 
 function enemies:spawn(ui)
     width, height, flags = love.window.getMode()
@@ -14,6 +15,7 @@ function enemies:spawn(ui)
         ui = ui,
         radius = 25,
         hitPlayer = false,
+        anim = walk,
         load = direction_ai.load,
         update = direction_ai.update
     }
@@ -45,6 +47,7 @@ function enemies:update(dt)
     width, height, flags = love.window.getMode()
 
     for i = 1, #self do
+        self[i].anim:update(dt)
         self[i]:update(dt)
 
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
@@ -78,14 +81,9 @@ function enemies:draw()
     for i = 1, #self do
         love.graphics.origin()
         love.graphics.translate(torus_x(self[i].x), torus_y(self[i].y))
+        love.graphics.rotate(self[i].dir)
 
-        if self[i].hitPlayer then
-            love.graphics.setColor(0, 1, 0, 1)
-        else
-            love.graphics.setColor(1, 1, 1, 1)
-        end
-
-        love.graphics.circle("line", 0, 0, 25, 10)
+        self[i].anim:draw()
     end
 
     love.graphics.pop()
