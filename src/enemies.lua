@@ -3,7 +3,13 @@ require "utils"
 
 enemies = {}
 
-walk = Animation(EnemyAnimLoader("walk", 1), 64, 64, 1, 0.15)
+walks = {}
+walks[1] = Animation(EnemyAnimLoader("walk", 1), 64, 64, 1, 0.15)
+walks[2] = Animation(EnemyAnimLoader("walk", 2), 64, 64, 1, 0.15)
+
+attacks = {}
+attacks[1] = Animation(EnemyAnimLoader("attack", 1), 64, 64, 1, 0.15)
+attacks[2] = Animation(EnemyAnimLoader("attack", 2), 64, 64, 1, 0.15)
 
 function enemies:spawn(ui)
     width, height, flags = love.window.getMode()
@@ -15,7 +21,7 @@ function enemies:spawn(ui)
         ui = ui,
         radius = 25,
         hitPlayer = false,
-        anim = walk,
+        anim = walks[(i % 2) + 1],
         load = direction_ai.load,
         update = direction_ai.update
     }
@@ -47,6 +53,12 @@ function enemies:update(dt)
     width, height, flags = love.window.getMode()
 
     for i = 1, #self do
+        if self[i].anim ~= attacks[(i % 2) + 1] and snake:distance(self[i].x, self[i].y) < self[i].radius * 5 then
+            self[i].anim = attacks[(i % 2) + 1]
+        elseif self[i].anim ~= walks[(i % 2) + 1] then
+            self[i].anim = walks[(i % 2) + 1]
+        end
+
         self[i].anim:update(dt)
         self[i]:update(dt)
 

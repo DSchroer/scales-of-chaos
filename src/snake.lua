@@ -52,6 +52,17 @@ function snake:hitTail(x, y, radius)
     return false
 end
 
+function snake:distance(x, y)
+    local d = distance(torus_x(x), torus_y(y), torus_x(self.x), torus_y(self.y))
+    for i = 1, #self.tail do
+        local td = distance(torus_x(x), torus_y(y), torus_x(self.tail[i].x), torus_y(self.tail[i].y))
+        if td < d then
+            d = td
+        end
+    end
+    return d
+end
+
 function snake:draw()
     love.graphics.push()
 
