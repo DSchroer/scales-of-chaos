@@ -20,7 +20,7 @@ function enemies:spawn(ui)
         y = math.random(0, height),
         ui = ui,
         radius = 25,
-        hitPlayer = false,
+        iframes = 0,
         anim = walks[(i % 2) + 1],
         load = direction_ai.load,
         update = direction_ai.update
@@ -67,21 +67,23 @@ function enemies:update(dt)
             self[i].anim = walks[(i % 2) + 1]
         end
 
+        if self[i].iframes > 0 then
+            self[i].iframes = self[i].iframes - dt
+        end
+
         self[i].anim:update(dt)
         self[i]:update(dt)
 
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
             self:respawn(i)
             self[i]:load()
-            self[i].hitPlayer = false
+            self[i].iframes = 0
             self[i].ui:scoreUp()
         end
 
-        if snake:hitTail(self[i].x, self[i].y, self[i].radius) and not self[i].hitPlayer then
+        if snake:hitTail(self[i].x, self[i].y, self[i].radius) and self[i].iframes <= 0 then
             snake:damage()
-            self[i].hitPlayer = true
-        else
-            self[i].hitPlayer = false
+            self[i].iframes = 1
         end
     end
 end
