@@ -104,7 +104,6 @@ function enemies:draw()
         love.graphics.rotate(-self[i].dir)
 
         self[i].anim:draw()
-        -- love.graphics.circle("line", 0, 0, self[i].radius)
     end
 
     love.graphics.pop()
