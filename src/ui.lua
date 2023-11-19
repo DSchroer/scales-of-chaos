@@ -1,6 +1,7 @@
 require "enemies"
 require "pickup"
 require "snake"
+require "blood"
 
 ui = {
     score = 0,
@@ -31,6 +32,9 @@ function ui:setState(state)
         end
         for i = 1, #pickups do
             pickups[i] = nil
+        end
+        for i = 1, #splats do
+            splats[i] = nil
         end
         enemies:spawn(ui)
     end

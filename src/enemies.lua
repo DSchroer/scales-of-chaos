@@ -21,7 +21,7 @@ function enemies:spawn(ui)
         ui = ui,
         radius = 25,
         iframes = 0,
-        anim = walks[(i % 2) + 1],
+        anim = table.copy(walks[(i % 2) + 1]),
         load = direction_ai.load,
         update = direction_ai.update
     }
@@ -65,11 +65,11 @@ function enemies:update(dt)
     width, height, flags = love.window.getMode()
 
     for i = 1, #self do
-        if self[i].anim ~= attacks[(i % 2) + 1] and snake:distance(self[i].x, self[i].y) < self[i].radius * 5 then
-            self[i].anim = attacks[(i % 2) + 1]
-        elseif self[i].anim ~= walks[(i % 2) + 1] then
-            self[i].anim = walks[(i % 2) + 1]
-        end
+        -- if self[i].anim ~= attacks[(i % 2) + 1] and snake:distance(self[i].x, self[i].y) < self[i].radius * 5 then
+        --     self[i].anim = table.copy(attacks[(i % 2) + 1])
+        -- elseif self[i].anim ~= walks[(i % 2) + 1] then
+        --     self[i].anim = table.copy(walks[(i % 2) + 1])
+        -- end
 
         if self[i].iframes > 0 then
             self[i].iframes = self[i].iframes - dt
@@ -79,6 +79,7 @@ function enemies:update(dt)
         self[i]:update(dt)
 
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
+            splats:spawn(self[i].x, self[i].y, -snake.dir)
             self:respawn(i)
             self[i]:load()
             self[i].iframes = 0
