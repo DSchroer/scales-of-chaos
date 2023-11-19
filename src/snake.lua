@@ -1,10 +1,20 @@
 require "utils"
 
-snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, tail_length = 7, tail_distance = 30 }
+snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, tail_length = 7, tail_distance = 30, visible = false }
 
 function snake:load(ui)
     self.ui = ui
     self.anim = Animation(LizardAnimLoader("head"), 64, 30, 1.5, 0.15)
+end
+
+function snake:reset()
+    while #snake.tail ~= snake.tail_length do
+        if #snake.tail < snake.tail_length then
+            snake:grow()
+        else
+            snake:damage()
+        end
+    end
 end
 
 function snake:grow()
@@ -36,7 +46,7 @@ function snake:damage()
     table.remove(self.tail, #self.tail)
     table.remove(self.tail, #self.tail)
     if #self.tail < 4 then
-        self.ui.paused = true
+        self.ui:setState("end")
     end
 end
 
@@ -69,6 +79,10 @@ function snake:distance(x, y)
 end
 
 function snake:draw()
+    if not self.visible then
+        return
+    end
+
     love.graphics.push()
 
     for i = #self.tail, 1, -1 do
