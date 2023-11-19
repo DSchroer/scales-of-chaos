@@ -4,16 +4,26 @@ require "snake"
 
 ui = {
     score = 0,
+    highscore = 0,
     state = "title"
 }
 
+scorefile = "soc.save"
+
 function ui:load()
     self.font = love.graphics.newFont("assets/fonts/dogicapixelbold.ttf", 30)
+
+    if love.filesystem.getInfo(scorefile) ~= nil then
+        saveTxt = love.filesystem.read(scorefile)
+        self.highscore = tonumber(saveTxt)
+    else
+        love.filesystem.write(scorefile, "0")
+    end
 end
 
 function ui:setState(state)
     if state == "game" then
-        score = 0
+        ui.score = 0
         snake.visible = true
         snake:reset()
         for i = 1, #enemies do
@@ -23,6 +33,13 @@ function ui:setState(state)
             pickups[i] = nil
         end
         enemies:spawn(ui)
+    end
+
+    if state == "end" then
+        if self.score > self.highscore then
+            self.highscore = self.score
+            love.filesystem.write(scorefile, string.format("%d", self.score))
+        end
     end
 
     self.state = state
@@ -97,6 +114,7 @@ function ui:draw()
         love.graphics.print(string.format("Score: %d", self.score), self.font, width - 300, 32, 0, 1, 1)
     elseif self.state == "end" then
         love.graphics.print(string.format("Score: %d", self.score), self.font, width - 300, 32, 0, 1, 1)
+        love.graphics.print(string.format("Best: %d", self.highscore), self.font, width - 300, 32 + 50, 0, 1, 1)
 
         love.graphics.print("Game Over!", self.font, width / 4, height / 3, 0, 2.5, 2.5)
 
