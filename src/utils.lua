@@ -10,6 +10,12 @@ function EnemyAnimLoader(name, n)
     end
 end
 
+function AnimLoader(name)
+    return function(i)
+        return string.format("assets/%s/%s%d.png", name, name, i)
+    end
+end
+
 function Animation(loader, x, y, scale, speed)
     local anim = {
         originX = -x,

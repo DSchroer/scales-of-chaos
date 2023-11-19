@@ -1,4 +1,5 @@
 require "snake"
+require "utils"
 
 pickups = {}
 
@@ -10,13 +11,13 @@ function pickups:spawn(onHit)
         y = math.random(0, height),
         radius = 25,
         hit = onHit,
-        t = 0
+        anim = Animation(AnimLoader("heart"), 64, 64, 1, 0.15)
     }
 end
 
 function pickups:update(dt)
     for i = 1, #self do
-        self[i].t = self[i].t + dt
+        self[i].anim:update(dt)
 
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
             self[i]:hit()
@@ -32,11 +33,9 @@ function pickups:draw()
     for i = 1, #self do
         love.graphics.origin()
         love.graphics.translate(self[i].x, self[i].y)
+        love.graphics.rotate(math.pi)
 
-        love.graphics.setColor(0, 1, 0, 1)
-        local scale = math.abs(math.sin(self[i].t * 2) * 0.5) + 0.75
-        love.graphics.scale(scale, scale)
-        love.graphics.circle("fill", 0, 0, 25, 10)
+        self[i].anim:draw()
     end
 
     love.graphics.scale(1, 1)
