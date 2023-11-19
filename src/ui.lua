@@ -7,6 +7,10 @@ ui = {
     paused = false
 }
 
+function ui:load()
+    self.font = love.graphics.newFont("assets/fonts/dogicapixelbold.ttf", 30)
+end
+
 function ui:scoreUp()
     self.score = self.score + 1
 
@@ -33,12 +37,12 @@ function ui:draw()
     width, height, flags = love.window.getMode()
 
     love.graphics.push()
-    love.graphics.setColor(1, 0, 0, 0.8)
-    love.graphics.print(string.format("Score: %d", self.score), width - 200, 32, 0, 3, 3)
+    love.graphics.setColor(1, 0, 0, 1)
+    love.graphics.print(string.format("Score: %d", self.score), self.font, width - 300, 32, 0, 1, 1)
 
 
     if self.paused then
-        love.graphics.print("Game Over!", width / 4, height / 4, 0, 5, 5)
+        love.graphics.print("Game Over!", self.font, width / 4, height / 4, 0, 2, 2)
     end
 
     love.graphics.pop()
