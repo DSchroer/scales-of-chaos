@@ -1,4 +1,5 @@
 require "utils"
+require "blood"
 
 snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, tail_length = 7, tail_distance = 30, visible = false }
 
@@ -44,6 +45,9 @@ end
 
 function snake:damage()
     table.remove(self.tail, #self.tail)
+
+    splats:spawn(self.tail[#self.tail].x, self.tail[#self.tail].y, self.tail[#self.tail].dir)
+
     table.remove(self.tail, #self.tail)
     if #self.tail < 4 then
         self.ui:setState("end")
