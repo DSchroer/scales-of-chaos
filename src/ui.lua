@@ -42,7 +42,7 @@ function ui:draw()
 
 
     if self.paused then
-        love.graphics.print("Game Over!", self.font, width / 4, height / 4, 0, 2, 2)
+        love.graphics.print("Game Over!", self.font, width / 4, height / 3, 0, 2.5, 2.5)
     end
 
     love.graphics.pop()
