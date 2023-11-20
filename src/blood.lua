@@ -11,6 +11,10 @@ function bloodAnim:update()
 end
 
 function splats:spawn(x, y, dir)
+    if #self > 100 then
+        table.remove(self, 1)
+    end
+
     self[#self + 1] = {
         x = torus_x(x),
         y = torus_y(y),
