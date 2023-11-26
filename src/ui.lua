@@ -6,7 +6,8 @@ require "blood"
 ui = {
     score = 0,
     highscore = 0,
-    state = "mainmenu"
+    state = "mainmenu",
+    spawnedPickups = 0
 }
 
 scorefile = "soc.save"
@@ -66,7 +67,8 @@ function ui:scoreUp()
         enemies:spawn(self)
     end
 
-    if self.score % 6 == 0 then
+    if self.spawnedPickups < (math.log(self.score) / 1.5) then
+        self.spawnedPickups = self.spawnedPickups + 1
         pickups:spawn(function()
             snake:grow()
             snake:grow()
