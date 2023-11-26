@@ -12,7 +12,7 @@ ui = {
 scorefile = "soc.save"
 
 function ui:load()
-    self.font = love.graphics.newFont("assets/fonts/dogicapixelbold.ttf", 30)
+    self.font = love.graphics.newFont("assets/fonts/dogicapixelbold.ttf", 41)
     self.mainmenu = love.graphics.newImage("assets/screens/mainmenu.png")
     self.gameover = love.graphics.newImage("assets/screens/gameover.png")
     self.pregame = love.graphics.newImage("assets/screens/pregame.png")
@@ -108,13 +108,13 @@ function ui:draw()
         love.graphics.draw(self.pregame)
     elseif self.state == "game" then
         love.graphics.setColor(147, 221, 19, 1)
-        love.graphics.print(string.format("Score: %d", self.score), self.font, width - 300, 32, 0, 1, 1)
+        love.graphics.print(string.format("Score: %d", self.score), self.font, width - 300, 32, 0, 0.75, 0.75)
     elseif self.state == "end" then
         love.graphics.draw(self.gameover)
 
         love.graphics.setColor(147, 221, 19, 1)
-        love.graphics.print(string.format("%d", self.score), self.font, 675, 311, 0, 1.5, 1.5)
-        love.graphics.print(string.format("%d", self.highscore), self.font, 390, 370, 0, 1.5, 1.5)
+        love.graphics.print(string.format("%d", self.score), self.font, 675, 311, 0, 1, 1)
+        love.graphics.print(string.format("%d", self.highscore), self.font, 395, 370, 0, 1, 1)
     end
 
     love.graphics.pop()
