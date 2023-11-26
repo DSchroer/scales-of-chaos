@@ -6,6 +6,10 @@ require "blood"
 
 function love.load()
     love.window.setMode(1280, 720)
+    local background = love.audio.newSource("assets/audio/background.mp3", "static")
+    background:setVolume(0.15)
+    background:setLooping(true)
+    love.audio.play(background)
 
     ui:load();
 
