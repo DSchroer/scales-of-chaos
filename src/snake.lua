@@ -1,7 +1,7 @@
 require "utils"
 require "blood"
 
-snake = { x = 100, y = 100, radius = 25, dir = 0, speed = 300, turn_speed = 4, tail_length = 7, tail_distance = 30, visible = false }
+snake = { x = 100, y = 100, radius = 30, dir = 0, speed = 300, turn_speed = 4, tail_length = 7, tail_distance = 30, visible = false }
 
 function snake:load(ui)
     self.ui = ui
