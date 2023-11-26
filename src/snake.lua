@@ -91,9 +91,9 @@ function snake:draw()
 
     for i = #self.tail, 1, -1 do
         love.graphics.origin()
-        love.graphics.translate(torus_x(self.tail[i].x) - 15, torus_y(self.tail[i].y))
+        love.graphics.translate(torus_x(self.tail[i].x) - 7, torus_y(self.tail[i].y))
         love.graphics.rotate(-self.tail[i].dir)
-        love.graphics.setColor(0, 0, 0, 0.3)
+        love.graphics.setColor(0, 0, 0, 0.15)
         if self.tail[i].anim ~= nil then
             self.tail[i].anim:draw()
         end
@@ -109,9 +109,9 @@ function snake:draw()
 
     local shadow_scale = 1.2
     love.graphics.origin()
-    love.graphics.translate(torus_x(self.x) - 15, torus_y(self.y))
+    love.graphics.translate(torus_x(self.x) - 7, torus_y(self.y))
     love.graphics.rotate(-self.dir)
-    love.graphics.setColor(0, 0, 0, 0.3)
+    love.graphics.setColor(0, 0, 0, 0.15)
     love.graphics.scale(shadow_scale, shadow_scale)
     self.anim:draw()
 

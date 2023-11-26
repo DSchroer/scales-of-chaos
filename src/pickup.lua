@@ -31,10 +31,18 @@ function pickups:draw()
     love.graphics.push()
 
     for i = 1, #self do
+        local shadow_scale = 1.2
         love.graphics.origin()
-        love.graphics.translate(self[i].x, self[i].y)
+        love.graphics.translate(torus_x(self[i].x) - 7, torus_y(self[i].y))
         love.graphics.rotate(math.pi)
+        love.graphics.setColor(0, 0, 0, 0.15)
+        love.graphics.scale(shadow_scale, shadow_scale)
+        self[i].anim:draw()
 
+        love.graphics.origin()
+        love.graphics.translate(torus_x(self[i].x), torus_y(self[i].y))
+        love.graphics.rotate(math.pi)
+        love.graphics.setColor(1, 1, 1, 1)
         self[i].anim:draw()
     end
 

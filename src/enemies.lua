@@ -171,9 +171,9 @@ function enemies:draw()
 
         local shadow_scale = 1.2
         love.graphics.origin()
-        love.graphics.translate(torus_x(self[i].x) - 15, torus_y(self[i].y))
+        love.graphics.translate(torus_x(self[i].x) - 7, torus_y(self[i].y))
         love.graphics.rotate(-self[i].dir)
-        love.graphics.setColor(0, 0, 0, 0.3)
+        love.graphics.setColor(0, 0, 0, 0.15)
         love.graphics.scale(shadow_scale, shadow_scale)
         self[i].anim:draw()
 
