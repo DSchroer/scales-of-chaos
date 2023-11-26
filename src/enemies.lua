@@ -49,14 +49,14 @@ HUNT = {
 RAGE = {
     name = "rage",
     start = function(self)
-        self.speed = self.speed * 1.25
+        self.speed = self.speed * 1.5
         self.anim = table.copy(attacks[self.anim_index])
     end,
     update = function(self)
         self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y)) + math.pi
     end,
     finish = function(self)
-        self.speed = self.speed / 1.25
+        self.speed = self.speed / 1.5
     end,
     draw = function(self)
         love.graphics.translate(-32, -64)

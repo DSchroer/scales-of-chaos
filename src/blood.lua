@@ -7,6 +7,9 @@ bloodAnim = Animation(AnimLoader("blood"), 64, 64, 1, 0.15)
 function bloodAnim:update()
     if self.frame < #self.frames then
         self.frame = self.frame + self.speed
+        self.done = false
+    else
+        self.done = true
     end
 end
 
@@ -36,6 +39,12 @@ function splats:draw()
         love.graphics.origin()
         love.graphics.translate(self[i].x, self[i].y)
         love.graphics.rotate(self[i].dir)
+
+        if self[i].anim.done then
+            love.graphics.setColor(1, 1, 1, 0.5)
+        else
+            love.graphics.setColor(1, 1, 1, 0.8)
+        end
 
         self[i].anim:draw()
     end
