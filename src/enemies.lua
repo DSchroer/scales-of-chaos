@@ -11,12 +11,16 @@ attacks = {}
 attacks[1] = Animation(EnemyAnimLoader("attack", 1), 64, 64, 1, 0.15)
 attacks[2] = Animation(EnemyAnimLoader("attack", 2), 64, 64, 1, 0.15)
 
+angryEmote = love.graphics.newImage("assets/enemy_emotes/angry_v1.png")
+scaredEmote = love.graphics.newImage("assets/enemy_emotes/scared_v1.png")
+
 HUNT = {
     name = "hunt",
     start = function(self)
         self.dir = math.rad(math.random(0, 360))
         self.maxT = math.random(3, 10)
         self.anim = table.copy(walks[self.anim_index])
+        self.rage = math.random(10) == 5
     end,
     update = function(self, dt)
         local switch = 256
@@ -25,6 +29,9 @@ HUNT = {
         if self.t > self.maxT then
             HUNT.start(self)
             self.t = 0
+            if self.rage then
+                self:setState(RAGE)
+            end
         end
 
         local distance = snake:distance(self.x, self.y)
@@ -34,7 +41,28 @@ HUNT = {
             self:setState(RUN)
         end
     end,
+    finish = function(self)
+    end,
     draw = function(self)
+    end
+}
+RAGE = {
+    name = "rage",
+    start = function(self)
+        self.speed = self.speed * 1.25
+        self.anim = table.copy(attacks[self.anim_index])
+    end,
+    update = function(self)
+        local switch = 256
+
+        self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y)) + math.pi
+    end,
+    finish = function(self)
+        self.speed = self.speed / 1.25
+    end,
+    draw = function(self)
+        love.graphics.translate(-32, -64)
+        love.graphics.draw(angryEmote)
     end
 }
 ATTACK = {
@@ -54,6 +82,8 @@ ATTACK = {
             self:setState(HUNT)
         end
     end,
+    finish = function(self)
+    end,
     draw = function(self)
     end
 }
@@ -71,6 +101,8 @@ ATTACK_COOLDOWN = {
         end
 
         self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y))
+    end,
+    finish = function(self)
     end,
     draw = function(self)
     end
@@ -92,7 +124,11 @@ RUN = {
             self:setState(HUNT)
         end
     end,
+    finish = function(self)
+    end,
     draw = function(self)
+        love.graphics.translate(-32, -64)
+        love.graphics.draw(scaredEmote)
     end
 }
 
@@ -109,19 +145,21 @@ function enemies:spawn(ui)
         iframes = 0,
         anim_index = anim_index,
         anim = table.copy(walks[anim_index]),
+        speed = 150,
         setState = function(self, state)
             if self.state == nil or self.state.name ~= state.name then
+                if self.state ~= nil then
+                    self.state.finish(self, state)
+                end
                 self.state = table.copy(state)
                 self.state.start(self)
             end
         end,
         update = function(self, dt)
-            local speed = 150
-
             self.state.update(self, dt);
 
-            self.x = self.x + (speed * dt * math.sin(self.dir))
-            self.y = self.y + (speed * dt * math.cos(self.dir))
+            self.x = self.x + (self.speed * dt * math.sin(self.dir))
+            self.y = self.y + (self.speed * dt * math.cos(self.dir))
         end,
     }
 
@@ -164,11 +202,6 @@ function enemies:draw()
     love.graphics.push()
 
     for i = 1, #self do
-        love.graphics.origin()
-        love.graphics.translate(torus_x(self[i].x), torus_y(self[i].y))
-
-        self[i].state.draw(self[i])
-
         local shadow_scale = 1.1
         love.graphics.origin()
         love.graphics.translate(torus_x(self[i].x) - 7, torus_y(self[i].y))
@@ -182,6 +215,9 @@ function enemies:draw()
         love.graphics.rotate(-self[i].dir)
         love.graphics.setColor(1, 1, 1, 1)
         self[i].anim:draw()
+
+        love.graphics.rotate(self[i].dir)
+        self[i].state.draw(self[i])
     end
 
     love.graphics.pop()
