@@ -107,12 +107,12 @@ function ui:draw()
     elseif self.state == "pregame" then
         love.graphics.draw(self.pregame)
     elseif self.state == "game" then
-        love.graphics.setColor(1, 0, 0, 1)
+        love.graphics.setColor(147, 221, 19, 1)
         love.graphics.print(string.format("Score: %d", self.score), self.font, width - 300, 32, 0, 1, 1)
     elseif self.state == "end" then
         love.graphics.draw(self.gameover)
 
-        love.graphics.setColor(1, 0, 0, 1)
+        love.graphics.setColor(147, 221, 19, 1)
         love.graphics.print(string.format("%d", self.score), self.font, 675, 311, 0, 1.5, 1.5)
         love.graphics.print(string.format("%d", self.highscore), self.font, 390, 370, 0, 1.5, 1.5)
     end
