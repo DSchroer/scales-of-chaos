@@ -161,7 +161,7 @@ function snake:update(dt)
         end
     end
 
-    snake:checkSelfHit()
+    -- snake:checkSelfHit()
 end
 
 function snake:checkSelfHit()

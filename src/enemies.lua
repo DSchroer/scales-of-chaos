@@ -107,6 +107,7 @@ ATTACK_COOLDOWN = {
 RUN = {
     name = "run",
     start = function(self)
+        self.speed = self.speed * 1.25
         self.anim = table.copy(walks[self.anim_index])
     end,
     update = function(self)
@@ -122,6 +123,7 @@ RUN = {
         end
     end,
     finish = function(self)
+        self.speed = self.speed / 1.25
     end,
     draw = function(self)
         love.graphics.translate(-32, -64)
