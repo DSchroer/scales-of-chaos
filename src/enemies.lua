@@ -19,6 +19,9 @@ crunch = love.audio.newSource("assets/audio/crunch.mp3", "static")
 eep = love.audio.newSource("assets/audio/eep.mp3", "static")
 eep:setVolume(0.25)
 
+rage = love.audio.newSource("assets/audio/rage.mp3", "static")
+rage:setVolume(0.75)
+
 HUNT = {
     name = "hunt",
     start = function(self)
@@ -56,6 +59,9 @@ RAGE = {
     start = function(self)
         self.speed = self.speed * 1.5
         self.anim = table.copy(attacks[self.anim_index])
+
+        rage:setPitch(1 + (math.random() * 0.5))
+        love.audio.play(rage)
     end,
     update = function(self)
         self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y)) + math.pi

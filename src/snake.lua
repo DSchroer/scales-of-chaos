@@ -4,7 +4,7 @@ require "blood"
 snake = { x = 100, y = 100, radius = 45, dir = 0, speed = 300, turn_speed = 4, tail_length = 7, tail_distance = 30, visible = false }
 
 walk = love.audio.newSource("assets/audio/walk.mp3", "static")
-walk:setVolume(0.25)
+walk:setVolume(0.15)
 walk:setPitch(1.5)
 
 function snake:load(ui)
