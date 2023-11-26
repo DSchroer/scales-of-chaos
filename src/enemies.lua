@@ -30,7 +30,7 @@ HUNT = {
         self.dir = math.rad(math.random(0, 360))
         self.maxT = math.random(3, 10)
         self.anim = table.copy(walks[self.anim_index])
-        self.rage = true
+        self.rage = math.random(10) == 5
     end,
     update = function(self, dt)
         local switch = 256
