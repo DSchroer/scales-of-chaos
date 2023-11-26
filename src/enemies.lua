@@ -15,6 +15,7 @@ angryEmote = love.graphics.newImage("assets/enemy_emotes/angry_v1.png")
 scaredEmote = love.graphics.newImage("assets/enemy_emotes/scared_v1.png")
 
 crunch = love.audio.newSource("assets/audio/crunch.mp3", "static")
+
 eep = love.audio.newSource("assets/audio/eep.mp3", "static")
 eep:setVolume(0.25)
 
@@ -181,6 +182,7 @@ function enemies:update(dt)
 
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
             love.audio.stop(crunch)
+            crunch:setPitch(1 + (math.random() * 0.5))
             love.audio.play(crunch)
 
             splats:spawn(self[i].x, self[i].y, -snake.dir)
