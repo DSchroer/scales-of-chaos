@@ -53,8 +53,6 @@ RAGE = {
         self.anim = table.copy(attacks[self.anim_index])
     end,
     update = function(self)
-        local switch = 256
-
         self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y)) + math.pi
     end,
     finish = function(self)
@@ -92,6 +90,7 @@ ATTACK_COOLDOWN = {
     start = function(self)
         self.iframes = 5;
         self.anim = table.copy(walks[self.anim_index])
+        self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y))
     end,
     update = function(self, dt)
         self.iframes = self.iframes - dt
@@ -99,8 +98,6 @@ ATTACK_COOLDOWN = {
         if self.iframes <= 0 then
             self:setState(HUNT)
         end
-
-        self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y))
     end,
     finish = function(self)
     end,
