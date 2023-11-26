@@ -14,6 +14,10 @@ attacks[2] = Animation(EnemyAnimLoader("attack", 2), 64, 64, 1, 0.15)
 angryEmote = love.graphics.newImage("assets/enemy_emotes/angry_v1.png")
 scaredEmote = love.graphics.newImage("assets/enemy_emotes/scared_v1.png")
 
+crunch = love.audio.newSource("assets/audio/crunch.mp3", "static")
+eep = love.audio.newSource("assets/audio/eep.mp3", "static")
+eep:setVolume(0.25)
+
 HUNT = {
     name = "hunt",
     start = function(self)
@@ -109,6 +113,8 @@ RUN = {
     start = function(self)
         self.speed = self.speed * 1.25
         self.anim = table.copy(walks[self.anim_index])
+        eep:setPitch(1 + (math.random() * 0.5))
+        love.audio.play(eep)
     end,
     update = function(self)
         local switch = 256
@@ -174,6 +180,9 @@ function enemies:update(dt)
         self[i]:update(dt)
 
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
+            love.audio.stop(crunch)
+            love.audio.play(crunch)
+
             splats:spawn(self[i].x, self[i].y, -snake.dir)
             self:respawn(i)
             self[i]:setState(HUNT);
