@@ -17,10 +17,10 @@ scaredEmote = Animation(EmoteLoader("scared"), 64, 64, 1, 0.15)
 crunch = love.audio.newSource("assets/audio/crunch.mp3", "static")
 
 eep = love.audio.newSource("assets/audio/eep.mp3", "static")
-eep:setVolume(0.25)
+eep:setVolume(0.5)
 
 rage = love.audio.newSource("assets/audio/rage.mp3", "static")
-rage:setVolume(0.75)
+rage:setVolume(1)
 
 hit = love.audio.newSource("assets/audio/hit.mp3", "static")
 
