@@ -35,8 +35,6 @@ HUNT = {
         end
     end,
     draw = function(self)
-        love.graphics.rotate(-self.dir)
-        self.anim:draw()
     end
 }
 ATTACK = {
@@ -57,8 +55,6 @@ ATTACK = {
         end
     end,
     draw = function(self)
-        love.graphics.rotate(-self.dir)
-        self.anim:draw()
     end
 }
 ATTACK_COOLDOWN = {
@@ -77,8 +73,6 @@ ATTACK_COOLDOWN = {
         self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y))
     end,
     draw = function(self)
-        love.graphics.rotate(-self.dir)
-        self.anim:draw()
     end
 }
 RUN = {
@@ -99,8 +93,6 @@ RUN = {
         end
     end,
     draw = function(self)
-        love.graphics.rotate(-self.dir)
-        self.anim:draw()
     end
 }
 
@@ -176,6 +168,20 @@ function enemies:draw()
         love.graphics.translate(torus_x(self[i].x), torus_y(self[i].y))
 
         self[i].state.draw(self[i])
+
+        local shadow_scale = 1.2
+        love.graphics.origin()
+        love.graphics.translate(torus_x(self[i].x) - 15, torus_y(self[i].y))
+        love.graphics.rotate(-self[i].dir)
+        love.graphics.setColor(0, 0, 0, 0.3)
+        love.graphics.scale(shadow_scale, shadow_scale)
+        self[i].anim:draw()
+
+        love.graphics.origin()
+        love.graphics.translate(torus_x(self[i].x), torus_y(self[i].y))
+        love.graphics.rotate(-self[i].dir)
+        love.graphics.setColor(1, 1, 1, 1)
+        self[i].anim:draw()
     end
 
     love.graphics.pop()
