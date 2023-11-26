@@ -31,7 +31,7 @@ function pickups:draw()
     love.graphics.push()
 
     for i = 1, #self do
-        local shadow_scale = 1.2
+        local shadow_scale = 1.1
         love.graphics.origin()
         love.graphics.translate(torus_x(self[i].x) - 7, torus_y(self[i].y))
         love.graphics.rotate(math.pi)
@@ -46,7 +46,5 @@ function pickups:draw()
         self[i].anim:draw()
     end
 
-    love.graphics.scale(1, 1)
-    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.pop()
 end

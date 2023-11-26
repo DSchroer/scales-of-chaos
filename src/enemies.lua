@@ -169,7 +169,7 @@ function enemies:draw()
 
         self[i].state.draw(self[i])
 
-        local shadow_scale = 1.2
+        local shadow_scale = 1.1
         love.graphics.origin()
         love.graphics.translate(torus_x(self[i].x) - 7, torus_y(self[i].y))
         love.graphics.rotate(-self[i].dir)
