@@ -137,8 +137,8 @@ function enemies:spawn(ui)
     local i = #self + 1
     local anim_index = (math.random(0, 10) % 2) + 1
     self[i] = {
-        x = math.random(0, width),
-        y = math.random(0, height),
+        x = 0,
+        y = 0,
         ui = ui,
         radius = 25,
         iframes = 0,
@@ -163,6 +163,7 @@ function enemies:spawn(ui)
     }
 
     self[i]:setState(HUNT)
+    enemies:respawn(i)
 end
 
 function enemies:update(dt)
@@ -192,7 +193,7 @@ function enemies:respawn(i)
     self[i].y = math.random(0, height)
     self[i].anim_index = (math.random(0, 10) % 2) + 1
 
-    if snake:hitHead(self[i].x, self[i].y, self[i].radius) or snake:hitTail(self[i].x, self[i].y, self[i].radius) then
+    if snake:distance(self[i].x, self[i].y) < 200 then
         self:respawn(i)
     end
 end
