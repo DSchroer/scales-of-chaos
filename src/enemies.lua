@@ -22,6 +22,8 @@ eep:setVolume(0.25)
 rage = love.audio.newSource("assets/audio/rage.mp3", "static")
 rage:setVolume(0.75)
 
+hit = love.audio.newSource("assets/audio/hit.mp3", "static")
+
 HUNT = {
     name = "hunt",
     start = function(self)
@@ -199,6 +201,7 @@ function enemies:update(dt)
         end
 
         if snake:hitTail(self[i].x, self[i].y, self[i].radius) and self[i].iframes <= 0 then
+            love.audio.play(hit)
             snake:damage()
             self[i]:setState(ATTACK_COOLDOWN)
         end

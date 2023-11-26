@@ -3,6 +3,10 @@ require "utils"
 
 pickups = {}
 
+ding = love.audio.newSource("assets/audio/ding.mp3", "static")
+ding:setPitch(2)
+ding:setVolume(0.75)
+
 function pickups:spawn(onHit)
     width, height, flags = love.window.getMode()
 
@@ -20,6 +24,7 @@ function pickups:update(dt)
         self[i].anim:update(dt)
 
         if snake:hitHead(self[i].x, self[i].y, self[i].radius) then
+            love.audio.play(ding)
             self[i]:hit()
             table.remove(self, i)
             return
