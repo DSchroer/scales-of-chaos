@@ -7,8 +7,8 @@ function pickups:spawn(onHit)
     width, height, flags = love.window.getMode()
 
     self[#self + 1] = {
-        x = math.random(0, width),
-        y = math.random(0, height),
+        x = math.random(32, width - 64),
+        y = math.random(32, height - 64),
         radius = 25,
         hit = onHit,
         anim = Animation(AnimLoader("heart"), 32, 32, 1, 0.15)
