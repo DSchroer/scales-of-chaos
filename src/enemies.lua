@@ -30,7 +30,7 @@ HUNT = {
         self.dir = math.rad(math.random(0, 360))
         self.maxT = math.random(3, 10)
         self.anim = table.copy(walks[self.anim_index])
-        self.rage = math.random(10) == 5
+        self.rage = true
     end,
     update = function(self, dt)
         local switch = 256
@@ -74,7 +74,8 @@ RAGE = {
         self.speed = self.speed / 1.5
     end,
     draw = function(self)
-        love.graphics.translate(-32, -64)
+        love.graphics.translate(32, -32)
+        love.graphics.rotate(math.pi)
         self.emote:draw()
     end
 }
