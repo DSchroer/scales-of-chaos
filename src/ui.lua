@@ -6,13 +6,16 @@ require "blood"
 ui = {
     score = 0,
     highscore = 0,
-    state = "title"
+    state = "mainmenu"
 }
 
 scorefile = "soc.save"
 
 function ui:load()
     self.font = love.graphics.newFont("assets/fonts/dogicapixelbold.ttf", 30)
+    self.mainmenu = love.graphics.newImage("assets/screens/mainmenu.png")
+    self.gameover = love.graphics.newImage("assets/screens/gameover.png")
+    self.pregame = love.graphics.newImage("assets/screens/pregame.png")
 
     if love.filesystem.getInfo(scorefile) ~= nil then
         saveTxt = love.filesystem.read(scorefile)
@@ -72,20 +75,21 @@ function ui:scoreUp()
 end
 
 function ui:update(dt)
-    if self.state == "title" and love.keyboard.isDown("return") then
+    if not love.keyboard.isDown("return") then
+        self.debounce = false;
+    end
+
+    if self.state == "mainmenu" and love.keyboard.isDown("return") and not self.debounce then
+        self.debounce = true;
+        self:setState("pregame")
+    end
+
+    if self.state == "pregame" and love.keyboard.isDown("return") and not self.debounce then
         self:setState("game")
     end
 
-    if self.state == "title" and love.keyboard.isDown("c") then
-        self:setState("credits")
-    end
-
-    if self.state == "credits" and love.keyboard.isDown("escape") then
-        self:setState("title")
-    end
-
     if self.state == "end" and love.keyboard.isDown("escape") then
-        self:setState("title")
+        self:setState("mainmenu")
     end
 
     if self.state == "end" and love.keyboard.isDown("return") then
@@ -97,33 +101,20 @@ function ui:draw()
     width, height, flags = love.window.getMode()
 
     love.graphics.push()
-    love.graphics.setColor(1, 0, 0, 1)
 
-    if self.state == "title" then
-        love.graphics.print("Scales Of Chaos", self.font, width / 4, height / 3, 0, 1.5, 1.5)
-
-        love.graphics.print("Move with arrow keys.", self.font, width / 3, height / 2, 0, 0.75, 0.75)
-        love.graphics.print("Press enter to start.", self.font, width / 3, (height / 2) + 100, 0, 0.75, 0.75)
-        love.graphics.print("Press c for credits.", self.font, width / 3, (height / 2) + 150, 0, 0.75, 0.75)
-    elseif self.state == "credits" then
-        love.graphics.print("Credits", self.font, (width / 3) + 75, height / 3, 0, 1.5, 1.5)
-
-        love.graphics.print("Design: Rebecca Goodine & Dominick Schroer", self.font, width / 5, (height / 2), 0, 0.75,
-            0.75)
-        love.graphics.print("Art: Rebecca Goodine", self.font, width / 5, (height / 2) + 50, 0, 0.75, 0.75)
-        love.graphics.print("Programming: Dominick Schroer", self.font, width / 5, (height / 2) + 100, 0, 0.75, 0.75)
-
-        love.graphics.print("Press escape for menu.", self.font, width / 3, (height / 2) + 200, 0, 0.75, 0.75)
+    if self.state == "mainmenu" then
+        love.graphics.draw(self.mainmenu)
+    elseif self.state == "pregame" then
+        love.graphics.draw(self.pregame)
     elseif self.state == "game" then
+        love.graphics.setColor(1, 0, 0, 1)
         love.graphics.print(string.format("Score: %d", self.score), self.font, width - 300, 32, 0, 1, 1)
     elseif self.state == "end" then
-        love.graphics.print(string.format("Score: %d", self.score), self.font, width - 300, 32, 0, 1, 1)
-        love.graphics.print(string.format("Best: %d", self.highscore), self.font, width - 300, 32 + 50, 0, 1, 1)
+        love.graphics.draw(self.gameover)
 
-        love.graphics.print("Game Over!", self.font, width / 4, height / 3, 0, 2.5, 2.5)
-
-        love.graphics.print("Press enter to retry.", self.font, width / 3, (height / 2), 0, 0.75, 0.75)
-        love.graphics.print("Press escape for menu.", self.font, width / 3, (height / 2) + 50, 0, 0.75, 0.75)
+        love.graphics.setColor(1, 0, 0, 1)
+        love.graphics.print(string.format("%d", self.score), self.font, 675, 311, 0, 1.5, 1.5)
+        love.graphics.print(string.format("%d", self.highscore), self.font, 390, 370, 0, 1.5, 1.5)
     end
 
     love.graphics.pop()
