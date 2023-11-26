@@ -34,6 +34,9 @@ function ui:setState(state)
         for i = 1, #enemies do
             enemies[i] = nil
         end
+        if #enemies == 1 then
+            enemies:respawn(1)
+        end
         for i = 1, #pickups do
             pickups[i] = nil
         end
