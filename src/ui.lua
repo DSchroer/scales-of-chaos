@@ -62,7 +62,7 @@ function ui:scoreUp()
         end)
     end
 
-    if self.score % 5 == 0 then
+    if #enemies < math.log(self.score * 1.5) then
         enemies:spawn(self)
     end
 
