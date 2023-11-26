@@ -3,10 +3,6 @@ require "blood"
 
 snake = { x = 100, y = 100, radius = 45, dir = 0, speed = 300, turn_speed = 4, tail_length = 7, tail_distance = 30, visible = false }
 
-walk = love.audio.newSource("assets/audio/walk.mp3", "static")
-walk:setVolume(0.15)
-walk:setPitch(1.5)
-
 function snake:load(ui)
     self.ui = ui
     self.anim = Animation(LizardAnimLoader("head"), 64, 30, 1.5, 0.15)
@@ -139,11 +135,6 @@ function snake:update(dt)
     end
 
     self.anim:update()
-
-    if self.anim.frame == 1 then
-        love.audio.stop(walk)
-        love.audio.play(walk)
-    end
 
     self.x = self.x + (self.speed * dt * math.sin(self.dir))
     self.y = self.y + (self.speed * dt * math.cos(self.dir))
