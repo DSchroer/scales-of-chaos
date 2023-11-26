@@ -11,8 +11,8 @@ attacks = {}
 attacks[1] = Animation(EnemyAnimLoader("attack", 1), 64, 64, 1, 0.15)
 attacks[2] = Animation(EnemyAnimLoader("attack", 2), 64, 64, 1, 0.15)
 
-angryEmote = love.graphics.newImage("assets/enemy_emotes/angry_v1.png")
-scaredEmote = love.graphics.newImage("assets/enemy_emotes/scared_v1.png")
+angryEmote = Animation(EmoteLoader("angry"), 64, 64, 1, 0.15)
+scaredEmote = Animation(EmoteLoader("scared"), 64, 64, 1, 0.15)
 
 crunch = love.audio.newSource("assets/audio/crunch.mp3", "static")
 
@@ -62,10 +62,12 @@ RAGE = {
         self.speed = self.speed * 1.5
         self.anim = table.copy(attacks[self.anim_index])
 
+        self.emote = table.copy(angryEmote)
         rage:setPitch(1 + (math.random() * 0.5))
         love.audio.play(rage)
     end,
-    update = function(self)
+    update = function(self, dt)
+        self.emote:update(dt)
         self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y)) + math.pi
     end,
     finish = function(self)
@@ -73,7 +75,7 @@ RAGE = {
     end,
     draw = function(self)
         love.graphics.translate(-32, -64)
-        love.graphics.draw(angryEmote)
+        self.emote:draw()
     end
 }
 ATTACK = {
@@ -124,8 +126,11 @@ RUN = {
         self.anim = table.copy(walks[self.anim_index])
         eep:setPitch(1 + (math.random() * 0.5))
         love.audio.play(eep)
+
+        self.emote = table.copy(scaredEmote)
     end,
-    update = function(self)
+    update = function(self, dt)
+        self.emote:update(dt)
         local switch = 256
 
         self.dir = math.atan2(torus_x(self.x) - torus_x(snake.x), torus_y(self.y) - torus_y(snake.y))
@@ -142,7 +147,7 @@ RUN = {
     end,
     draw = function(self)
         love.graphics.translate(-32, -64)
-        love.graphics.draw(scaredEmote)
+        self.emote:draw()
     end
 }
 

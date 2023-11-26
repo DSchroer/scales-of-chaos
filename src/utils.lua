@@ -10,6 +10,12 @@ function EnemyAnimLoader(name, n)
     end
 end
 
+function EmoteLoader(name)
+    return function(i)
+        return string.format("assets/enemy_emotes/%s%d.png", name, i)
+    end
+end
+
 function AnimLoader(name)
     return function(i)
         return string.format("assets/%s/%s%d.png", name, name, i)
