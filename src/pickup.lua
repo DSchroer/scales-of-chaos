@@ -11,7 +11,7 @@ function pickups:spawn(onHit)
         y = math.random(0, height),
         radius = 25,
         hit = onHit,
-        anim = Animation(AnimLoader("heart"), 64, 64, 1, 0.15)
+        anim = Animation(AnimLoader("heart"), 32, 32, 1, 0.15)
     }
 end
 
