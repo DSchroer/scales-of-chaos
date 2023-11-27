@@ -6,11 +6,14 @@ require "blood"
 
 function love.load()
     love.window.setMode(1280, 720)
-    local background = love.audio.newSource("assets/audio/background.mp3", "static")
+    background = love.audio.newSource("assets/audio/background.mp3", "static")
+    game = love.audio.newSource("assets/audio/game.mp3", "static")
     background:setVolume(0.15)
     background:setLooping(true)
+    game:setVolume(0.15)
+    game:setLooping(true)
     love.audio.play(background)
-
+    love.audio.stop(game)
     ui:load();
 
     bg = love.graphics.newImage("assets/background.jpg")
@@ -22,11 +25,14 @@ function love.update(dt)
     ui:update(dt)
 
     if ui.state == "game" then
+	love.audio.stop(background)
+	love.audio.play(game)
         splats:update(dt)
         enemies:update(dt)
         pickups:update(dt)
         snake:update(dt)
     end
+
 end
 
 function love.draw()
