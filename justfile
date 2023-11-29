@@ -4,7 +4,7 @@ play:
 build: linux windows web
 
 web: lovefile
-	love.js scales-of-chaos.love game -c -t "Scales Of Chaos"
+	love.js scales-of-chaos.love game -c -t "Scales Of Chaos" -m 33554432
 	-rm -r builds/web
 	mv game builds/web
 

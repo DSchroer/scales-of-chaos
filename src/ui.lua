@@ -18,6 +18,15 @@ function ui:load()
     self.gameover = love.graphics.newImage("assets/screens/gameover.png")
     self.pregame = love.graphics.newImage("assets/screens/pregame.png")
 
+    background = love.audio.newSource("assets/audio/background.mp3", "static")
+    game = love.audio.newSource("assets/audio/game.mp3", "static")
+    background:setVolume(0.15)
+    background:setLooping(true)
+    game:setVolume(0.15)
+    game:setLooping(true)
+    love.audio.play(background)
+    love.audio.stop(game)
+
     if love.filesystem.getInfo(scorefile) ~= nil then
         saveTxt = love.filesystem.read(scorefile)
         self.highscore = tonumber(saveTxt)
@@ -28,6 +37,9 @@ end
 
 function ui:setState(state)
     if state == "game" then
+        love.audio.stop(background)
+        love.audio.play(game)
+
         ui.score = 0
         snake.visible = true
         snake:reset()
@@ -47,6 +59,9 @@ function ui:setState(state)
     end
 
     if state == "end" then
+        love.audio.stop(game)
+        love.audio.play(background)
+
         if self.score > self.highscore then
             self.highscore = self.score
             love.filesystem.write(scorefile, string.format("%d", self.score))
