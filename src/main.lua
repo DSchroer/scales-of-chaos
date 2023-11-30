@@ -8,6 +8,7 @@ require "blood"
 function love.load()
     load()
 
+    love.window.setTitle("Scales of Chaos")
     love.window.setMode(1280, 720)
     ui:load();
 
