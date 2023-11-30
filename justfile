@@ -13,6 +13,8 @@ web: lovefile
 	love.js scales-of-chaos.love game -c -t "Scales Of Chaos" -m 33554432
 	-rm -r builds/web
 	mv game builds/web
+	rm -r builds/web/theme
+	cp -r theme builds/web/theme
 
 linux: lovefile
 	-mkdir -p builds/linux
