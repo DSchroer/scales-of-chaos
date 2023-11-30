@@ -1,3 +1,4 @@
+require "utils"
 require "snake"
 require "enemies"
 require "ui"
@@ -5,6 +6,8 @@ require "pickup"
 require "blood"
 
 function love.load()
+    load()
+
     love.window.setMode(1280, 720)
     ui:load();
 

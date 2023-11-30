@@ -1,3 +1,7 @@
+function load()
+    width, height, flags = love.window.getMode()
+end
+
 function LizardAnimLoader(name)
     return function(i)
         return string.format("assets/lizard_frames/frame%d/frame%d_%s.png", i, i, name)
@@ -65,14 +69,10 @@ function drawFrame(self)
 end
 
 function torus_x(x)
-    width, height, flags = love.window.getMode()
-
     return x % width
 end
 
 function torus_y(x)
-    width, height, flags = love.window.getMode()
-
     return x % height
 end
 

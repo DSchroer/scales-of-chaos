@@ -160,8 +160,6 @@ function snake:update(dt)
             self.tail[i].anim:update()
         end
     end
-
-    -- snake:checkSelfHit()
 end
 
 function snake:checkSelfHit()
