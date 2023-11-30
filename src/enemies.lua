@@ -183,7 +183,6 @@ function enemies:spawn(ui)
         end,
     }
 
-    self[i]:setState(HUNT)
     enemies:respawn(i)
 end
 
@@ -216,6 +215,7 @@ function enemies:respawn(i)
     self[i].x = math.random(0, width)
     self[i].y = math.random(0, height)
     self[i].anim_index = (math.random(0, 10) % 2) + 1
+    self[i]:setState(HUNT)
 
     if snake:distance(self[i].x, self[i].y) < 200 then
         self:respawn(i)
