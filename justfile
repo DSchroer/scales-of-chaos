@@ -1,6 +1,12 @@
 play:
 	love src
 
+release: build
+	cp scales-of-chaos.love builds
+	zip builds/linux.zip -r builds/linux
+	zip builds/windows.zip -r builds/windows
+	zip builds/web.zip -r builds/web
+
 build: linux windows web
 
 web: lovefile
@@ -25,4 +31,5 @@ windows: lovefile
 	-rm -r .tmp
 
 lovefile:
+	-rm scales-of-chaos.love
 	cd src && zip -r ../scales-of-chaos.love *
