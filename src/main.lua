@@ -27,7 +27,7 @@ end
 
 function love.draw()
     love.graphics.reset()
-    love.graphics.draw(bg, 0, 0, 0, 2, 2)
+    love.graphics.draw(bg, 0, 0, 0, 1, 1)
 
     splats:draw()
     enemies:draw()
