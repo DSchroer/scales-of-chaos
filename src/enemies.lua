@@ -188,8 +188,6 @@ function enemies:spawn(ui)
 end
 
 function enemies:update(dt)
-    width, height, flags = love.window.getMode()
-
     for i = 1, #self do
         self[i].anim:update(dt)
         self[i]:update(dt)

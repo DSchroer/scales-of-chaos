@@ -32,10 +32,12 @@ function love.draw()
     love.graphics.reset()
     love.graphics.draw(bg, 0, 0, 0, 1, 1)
 
-    splats:draw()
-    enemies:draw()
-    pickups:draw()
-    snake:draw()
+    if ui.state == "game" then
+        splats:draw()
+        enemies:draw()
+        pickups:draw()
+        snake:draw()
+    end
 
     ui:draw()
 end
