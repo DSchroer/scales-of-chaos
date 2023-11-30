@@ -1,12 +1,20 @@
 play:
 	love src
 
+release: build
+	cp scales-of-chaos.love builds
+	zip builds/linux.zip -r builds/linux
+	zip builds/windows.zip -r builds/windows
+	zip builds/web.zip -r builds/web
+
 build: linux windows web
 
 web: lovefile
 	love.js scales-of-chaos.love game -c -t "Scales Of Chaos" -m 33554432
 	-rm -r builds/web
 	mv game builds/web
+	rm -r builds/web/theme
+	cp -r theme builds/web/theme
 
 linux: lovefile
 	-mkdir -p builds/linux
@@ -25,4 +33,5 @@ windows: lovefile
 	-rm -r .tmp
 
 lovefile:
+	-rm scales-of-chaos.love
 	cd src && zip -r ../scales-of-chaos.love *
