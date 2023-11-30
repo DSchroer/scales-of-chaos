@@ -9,6 +9,7 @@ function love.load()
     ui:load();
 
     bg = love.graphics.newImage("assets/background.jpg")
+    love.window.setIcon(love.image.newImageData("assets/lizard_flat/lizard_2.png"))
 
     snake:load(ui)
 end
